@@ -1,0 +1,3 @@
+# Packer plugin directories
+pack/
+plugin/packer_compiled.lua
