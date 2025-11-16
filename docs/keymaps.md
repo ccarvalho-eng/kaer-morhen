@@ -5,7 +5,7 @@ Leader key: `<space>`
 ## File Explorer
 | Key | Action |
 |-----|--------|
-| `<space>e` | Toggle file tree |
+| `<space>e` | Toggle file tree and reveal current file |
 
 ## LSP (Elixir buffers)
 | Key | Action |
@@ -45,6 +45,7 @@ Leader key: `<space>`
 | `<space>tf` | Test file |
 | `<space>ts` | Test suite |
 | `<space>tl` | Test last |
+| `<space>tt` | Toggle test/implementation (creates test if missing) |
 | `<space>i` | IEx terminal |
 
 ## Claude Code

@@ -10,6 +10,6 @@ end
 M.map('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- File explorer
-M.map('n', '<leader>e', '<cmd>NvimTreeToggle<CR>', { desc = 'Toggle file tree' })
+M.map('n', '<leader>e', '<cmd>NvimTreeFindFileToggle<CR>', { desc = 'Toggle file tree and reveal current file' })
 
 return M
