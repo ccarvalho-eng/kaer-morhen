@@ -1,22 +1,22 @@
 # Kaer Morhen
 
-Minimal Neovim configuration optimized for Elixir development with modern tooling and AI assistance.
+Neovim configuration for Elixir development.
 
 ## Features
 
-- **LSP** - ElixirLS with Dialyzer, test lenses, format-on-save
-- **Completion** - nvim-cmp with LSP, buffer, path, and snippets
-- **Git** - Gitsigns, Fugitive, LazyGit integration
-- **Fuzzy Finder** - Telescope with FZF native
-- **Testing** - vim-test + IEx terminal integration
-- **AI** - Claude Code integration with diff support
-- **Editor** - Auto-pairs, surround, smart commenting, Treesitter
+- ElixirLS with Dialyzer, test lenses, format-on-save
+- nvim-cmp with LSP, buffer, path, and snippets
+- Gitsigns, Fugitive, LazyGit
+- Telescope with FZF native
+- vim-test + IEx terminal
+- Claude Code integration
+- Auto-pairs, surround, commenting, Treesitter
 
 ## Installation
 
 ```bash
-git clone git@github.com:ccarvalho-eng/kaer-morhen.git ~/.config/nvim-vanilla
-nvim  # Plugins install automatically on first launch
+git clone git@github.com:ccarvalho-eng/kaer-morhen.git ~/.config/nvim
+nvim  # Plugins install on first launch
 ```
 
 Run `:PackerSync` to update plugins.
@@ -24,7 +24,3 @@ Run `:PackerSync` to update plugins.
 ## Documentation
 
 - [Keymaps Reference](docs/keymaps.md)
-
-## Philosophy
-
-Less is more. This configuration prioritizes simplicity and performance over feature bloat.
