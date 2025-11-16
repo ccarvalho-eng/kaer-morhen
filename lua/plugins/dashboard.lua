@@ -85,6 +85,26 @@ local witcher_quotes = {
     quote = "But do you know when stories stop being stories? The moment someone begins to believe in them.",
     author = "Codringher",
   }, 
+  {
+    quote = "There is never a second opportunity to make a first impression.",
+    author = "Andrzej Sapkowski, Sword of Destiny",
+  },
+  {
+    quote = "You’ve mistaken the stars reflected on the surface of the lake at night for the heavens.",
+    author = "Andrzej Sapkowski, Blood of Elves",
+  },
+  {
+    quote = "Only death can finish the fight, everything else only interrupts the fighting.",
+    author = "Andrzej Sapkowski",
+  },
+  {
+    quote = "It’s better to die than to live in the knowledge that you’ve done something that needs forgiveness.",
+    author = "Andrzej Sapkowski, Blood of Elves",
+  },
+  {
+    quote = "I need this conversation. They say silence is golden. Maybe it is, although I'm not sure it's worth that much. It has its price certainly; you have to pay for it.",
+    author = "Andrzej Sapkowski, The Last Wish",
+  },
 }
 
 math.randomseed(os.time())
