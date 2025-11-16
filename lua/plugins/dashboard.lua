@@ -84,27 +84,7 @@ local witcher_quotes = {
   {
     quote = "But do you know when stories stop being stories? The moment someone begins to believe in them.",
     author = "Codringher",
-  },
-  {
-    quote = "A coward dies a hundred times. A brave man dies but once.",
-    author = "The Witcher",
-  },
-  {
-    quote = "There is no destiny. The only thing everyone is destined for is death.",
-    author = "The Witcher",
-  },
-  {
-    quote = "Wisdom includes the ability to turn a deaf ear to foolish advice.",
-    author = "The Witcher",
-  },
-  {
-    quote = "They are not demons, not devils... Worse than that. They are people.",
-    author = "The Witcher",
-  },
-  {
-    quote = "If someone shows you compassion, don't mistake it for something else.",
-    author = "The Witcher",
-  },
+  }, 
 }
 
 math.randomseed(os.time())
