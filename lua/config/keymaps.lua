@@ -9,4 +9,7 @@ end
 -- Core keymaps
 M.map('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+-- File explorer
+M.map('n', '<leader>e', '<cmd>NvimTreeToggle<CR>', { desc = 'Toggle file tree' })
+
 return M

@@ -24,6 +24,7 @@ local plugins = {
   'telescope',
   'cmp',
   'editor',
+  'nvim-tree',
 }
 
 for _, plugin in ipairs(plugins) do

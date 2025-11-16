@@ -2,6 +2,11 @@
 
 Leader key: `<space>`
 
+## File Explorer
+| Key | Action |
+|-----|--------|
+| `<space>e` | Toggle file tree |
+
 ## LSP (Elixir buffers)
 | Key | Action |
 |-----|--------|

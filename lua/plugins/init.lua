@@ -33,6 +33,8 @@ return function(use)
   use 'numToStr/Comment.nvim'
   use 'windwp/nvim-autopairs'
   use 'kylechui/nvim-surround'
+  use 'nvim-tree/nvim-tree.lua'
+  use 'nvim-tree/nvim-web-devicons'
 
   -- Language-Specific
   use 'vim-test/vim-test'
