@@ -18,6 +18,7 @@ require('packer').startup(require('plugins'))
 
 -- Setup plugin configurations
 local plugins = {
+  'dashboard',
   'lsp',
   'treesitter',
   'gitsigns',
