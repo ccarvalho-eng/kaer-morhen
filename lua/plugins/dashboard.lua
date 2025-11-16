@@ -1,5 +1,144 @@
 local M = {}
 
+local witcher_quotes = {
+  {
+    quote = "Evil is evil. Lesser, greater, middling... makes no difference.",
+    author = "Geralt of Rivia",
+  },
+  {
+    quote = "People like to invent monsters and monstrosities. Then they seem less monstrous themselves.",
+    author = "Geralt of Rivia",
+  },
+  {
+    quote = "To be neutral does not mean to be indifferent or insensitive. You don't have to kill your feelings.",
+    author = "Geralt of Rivia",
+  },
+  {
+    quote = "If I'm to choose between one evil and another, I'd rather not choose at all.",
+    author = "Geralt of Rivia",
+  },
+  {
+    quote = "Mistakes... are also important to me. I don't cross them out of my life, or memory.",
+    author = "Geralt of Rivia",
+  },
+  {
+    quote = "Destiny is just the embodiment of the soul's desire to grow.",
+    author = "Yennefer of Vengerberg",
+  },
+  {
+    quote = "Magic is chaos, art and science. It is a curse, a blessing and progress.",
+    author = "Yennefer of Vengerberg",
+  },
+  {
+    quote = "No one wants to suffer. But yet it is our lot. And some suffer more. Not necessarily of their own volition.",
+    author = "Dandelion",
+  },
+  {
+    quote = "Sometimes there is nothing worse than getting exactly what you wished for.",
+    author = "Tissaia de Vries",
+  },
+  {
+    quote = "The sword of destiny has two edges. You are one of them.",
+    author = "Calanthe",
+  },
+  {
+    quote = "We never get to choose. We just... adapt.",
+    author = "Ciri",
+  },
+  {
+    quote = "Fear is an illness. If you catch it and leave it untreated, it can consume you.",
+    author = "Calanthe",
+  },
+  {
+    quote = "Before a sword pierces a body, it must first pierce the soul.",
+    author = "Cahir",
+  },
+  {
+    quote = "I manage because I have to. Because I've no other way out. Because I've overcome the vanity and pride of being different.",
+    author = "Geralt of Rivia",
+  },
+  {
+    quote = "When you know about something it stops being a nightmare. When you know how to fight something, it stops being so threatening.",
+    author = "Uncle Vesemir",
+  },
+  {
+    quote = "Well, we're afeared. And what of it? Do we sit down and weep and tremble? Life must go on.",
+    author = "Yurga",
+  },
+  {
+    quote = "It is easy to kill with a bow, girl. How easy it is to release the bowstring and think, it is not I, it is the arrow.",
+    author = "Geralt of Rivia",
+  },
+  {
+    quote = "Only Evil and Greater Evil exist and beyond them, in the shadows, lurks True Evil.",
+    author = "Renfri",
+  },
+  {
+    quote = "The world is full of evil, so it's sufficient to stride ahead, and destroy the Evil encountered on the way.",
+    author = "Regis",
+  },
+  {
+    quote = "Every myth, every fable must have some roots. Most often a dream, a wish, a desire, a yearning.",
+    author = "Geralt of Rivia",
+  },
+  {
+    quote = "But do you know when stories stop being stories? The moment someone begins to believe in them.",
+    author = "Codringher",
+  },
+}
+
+math.randomseed(os.time())
+
+local function wrap_text(text, max_width)
+  local words = {}
+  for word in text:gmatch("%S+") do
+    table.insert(words, word)
+  end
+
+  local lines = {}
+  local current_line = ""
+
+  for _, word in ipairs(words) do
+    local test_line = current_line == "" and word or current_line .. " " .. word
+    if #test_line <= max_width then
+      current_line = test_line
+    else
+      if current_line ~= "" then
+        table.insert(lines, current_line)
+      end
+      current_line = word
+    end
+  end
+
+  if current_line ~= "" then
+    table.insert(lines, current_line)
+  end
+
+  return lines
+end
+
+local function get_random_witcher_quote()
+  local selected = witcher_quotes[math.random(#witcher_quotes)]
+  local lines = {}
+  local max_width = 60
+  local author_width = 70
+
+  -- Wrap the quote text
+  local quote_text = selected.quote
+  local wrapped_lines = wrap_text(quote_text, max_width)
+
+  -- Add quotes around each line
+  for _, line in ipairs(wrapped_lines) do
+    table.insert(lines, '"' .. line .. '"')
+  end
+
+  -- Right-align the author name
+  local author_line = "- " .. selected.author
+  table.insert(lines, string.format("%" .. author_width .. "s", author_line))
+
+  return lines
+end
+
 function M.setup()
   local ok, alpha = pcall(require, 'alpha')
   if not ok then return end
@@ -7,30 +146,42 @@ function M.setup()
   local dashboard = require('alpha.themes.dashboard')
 
   -- Witcher logo
-  dashboard.section.header.val = {
-    [[⠀⠀⠀⠀⠀⢀⡔⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢢⡀⠀⠀⠀⠀⠀]],
-    [[⠀⠀⠀⠀⠀⢾⢿⣄⡀⠀⠀⠀⠀⠀⠱⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⠎⠀⠀⠀⠀⠀⢀⣠⡿⡷⠀⠀⠀⠀⠀]],
-    [[⠀⠀⠀⠀⠀⠈⡳⣿⣻⣿⣶⣤⣄⡀⠀⠘⣿⣷⡼⣦⡹⣿⣿⣿⣿⣿⣿⢏⣴⢇⣾⣿⠃⠀⢀⣠⣤⣶⣿⣟⣿⢞⠁⠀⠀⠀⠀⠀]],
-    [[⠀⠀⠀⠀⠀⠀⢳⡠⡙⠷⣯⣻⢿⣿⣿⣶⢌⣩⣭⣭⣥⣽⣿⣿⣿⣿⣯⣮⣭⣭⣍⡡⣶⣿⣿⡿⣟⣽⠾⢋⠄⡞⠀⠀⠀⠀⠀⠀]],
-    [[⠀⠀⠀⠀⠀⠀⠈⢧⢻⣶⡝⠻⣿⣿⡿⣿⣿⣿⣿⣿⣿⡿⢿⣿⣿⡿⢿⣿⣿⣿⣿⣿⣿⢿⣿⣿⠟⢫⣶⡟⡼⠁⠀⠀⠀⠀⠀⠀]],
-    [[⠀⠀⠀⠀⠀⠀⠀⠈⢧⡛⣿⣶⡄⠙⢵⣷⣯⣻⢿⣷⣿⢿⣿⢸⡇⣿⡿⣿⣾⡿⣟⣽⣾⡮⠋⢠⣶⣿⢏⡼⠁⠀⠀⠀⠀⠀⠀⠀]],
-    [[⠀⠀⠐⠒⠺⠿⢿⣦⠀⠙⢌⠛⢇⣴⣷⡌⠙⣻⢽⣾⣟⡏⣿⣿⣿⣿⢹⣻⣷⡯⣿⠏⢡⣾⣦⡸⠛⡡⠋⠀⣰⡿⠿⠗⠒⠂⠀⠀]],
-    [[⠀⠀⠀⠀⠀⠀⠀⠀⣁⣠⣴⣜⡿⣿⣿⡼⣄⡉⠉⠈⠙⡿⣿⡟⢿⣿⢿⠋⠁⠉⢉⣠⢯⣿⣿⢿⣣⣦⣄⣈⠀⠀⠀⠀⠀⠀⠀⠀]],
-    [[⠀⠀⠀⣀⣠⣴⣶⣿⣿⣿⣿⣿⣿⣷⣯⣻⢿⣭⣿⣼⣿⢽⣿⣧⣼⣿⡯⣷⣧⣿⣭⡷⣟⣽⣾⣿⣿⣿⣿⣿⣿⣶⣦⣄⣀⠀⠀⠀]],
-    [[⠐⠚⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠚⠙⢿⡻⢯⣿⣿⣿⣿⡽⢟⡿⠋⠓⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠓⠂]],
-    [[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣤⣶⣶⣶⣶⡦⠀⣯⣖⠈⠉⠉⠁⣲⣽⠀⢴⣶⣶⣶⣶⣤⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
-    [[⠀⠀⠀⠀⠀⠀⠀⠀⣰⣾⣿⣿⣿⣿⣿⡿⠟⠉⠀⠀⢛⡿⠿⠿⠿⠿⢿⡟⠀⠀⠉⠻⢿⣿⣿⣿⣿⣿⣷⣆⠀⠀⠀⠀⠀⠀⠀⠀]],
-    [[⠀⠀⠀⠀⠀⠀⢀⣼⣿⣿⣿⣿⡿⠟⠉⠀⠀⠀⠀⠀⢸⡟⡶⡤⢤⢼⢻⡇⠀⠀⠀⠀⠀⠉⠻⢿⣿⣿⣿⣿⣧⡀⠀⠀⠀⠀⠀⠀]],
-    [[⠀⠀⠀⠀⠀⢠⣾⣿⣿⣿⠟⠋⠀⠀⠀⠀⣠⣴⡖⠀⠸⠀⠃⠀⠀⠘⠀⠇⠀⢲⣦⣄⠀⠀⠀⠀⠉⠻⣿⣿⣿⣷⡄⠀⠀⠀⠀⠀]],
-    [[⠀⠀⠀⠀⣰⣿⣿⠟⠋⠀⠀⠀⠀⢀⣤⣾⣿⠏⠀⠀⢡⠀⡀⠀⠀⢀⠀⡌⠀⠀⠹⣿⣷⣤⡀⠀⠀⠀⠀⠙⠻⣿⣿⣆⠀⠀⠀⠀]],
-    [[⠀⠀⢀⣼⡿⠏⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⠏⠀⠀⠀⢸⡇⣿⣦⣴⣿⢸⡇⠀⠀⠀⠸⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠹⢿⣧⡀⠀⠀]],
-    [[⠀⢀⠜⠉⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⠋⠀⠀⠀⠀⢸⡇⣿⣿⣿⣿⢸⡇⠀⠀⠀⠀⠙⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠉⠣⡀⠀]],
-    [[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡿⠃⠀⠀⠀⠀⠀⠸⠀⠙⠿⠿⠊⠀⠇⠀⠀⠀⠀⠀⠘⢿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
-    [[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡿⠁⠀⠀⠀⠀⠀⠀⠀⢠⠀⠀⠀⠀⡄⠀⠀⠀⠀⠀⠀⠀⠈⢿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
-    [[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡘⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡣⠤⠤⢜⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
-    [[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢛⣤⣤⣤⣤⡓⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
-    [[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠛⠛⠛⠛⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
+  local header = {
+    [[          ⠀⠀ ⠀⠀⠀⢀⡔⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢢⡀⠀⠀⠀⠀⠀]],
+    [[          ⠀ ⠀⠀⠀⠀⢾⢿⣄⡀⠀⠀⠀⠀⠀⠱⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⠎⠀⠀⠀⠀⠀⢀⣠⡿⡷⠀⠀⠀⠀⠀]],
+    [[           ⠀⠀⠀⠀⠀⠈⡳⣿⣻⣿⣶⣤⣄⡀⠀⠘⣿⣷⡼⣦⡹⣿⣿⣿⣿⣿⣿⢏⣴⢇⣾⣿⠃⠀⢀⣠⣤⣶⣿⣟⣿⢞⠁⠀⠀⠀⠀⠀]],
+    [[           ⠀⠀⠀⠀⠀⠀⢳⡠⡙⠷⣯⣻⢿⣿⣿⣶⢌⣩⣭⣭⣥⣽⣿⣿⣿⣿⣯⣮⣭⣭⣍⡡⣶⣿⣿⡿⣟⣽⠾⢋⠄⡞⠀⠀⠀⠀⠀⠀]],
+    [[           ⠀⠀⠀⠀⠀⠀⠈⢧⢻⣶⡝⠻⣿⣿⡿⣿⣿⣿⣿⣿⣿⡿⢿⣿⣿⡿⢿⣿⣿⣿⣿⣿⣿⢿⣿⣿⠟⢫⣶⡟⡼⠁⠀⠀⠀⠀⠀⠀]],
+    [[           ⠀⠀⠀⠀⠀⠀⠀⠈⢧⡛⣿⣶⡄⠙⢵⣷⣯⣻⢿⣷⣿⢿⣿⢸⡇⣿⡿⣿⣾⡿⣟⣽⣾⡮⠋⢠⣶⣿⢏⡼⠁⠀⠀⠀⠀⠀⠀⠀]],
+    [[           ⠀⠀⠐⠒⠺⠿⢿⣦⠀⠙⢌⠛⢇⣴⣷⡌⠙⣻⢽⣾⣟⡏⣿⣿⣿⣿⢹⣻⣷⡯⣿⠏⢡⣾⣦⡸⠛⡡⠋⠀⣰⡿⠿⠗⠒⠂⠀⠀]],
+    [[           ⠀⠀⠀⠀⠀⠀⠀⠀⣁⣠⣴⣜⡿⣿⣿⡼⣄⡉⠉⠈⠙⡿⣿⡟⢿⣿⢿⠋⠁⠉⢉⣠⢯⣿⣿⢿⣣⣦⣄⣈⠀⠀⠀⠀⠀⠀⠀⠀]],
+    [[           ⠀⠀⠀⣀⣠⣴⣶⣿⣿⣿⣿⣿⣿⣷⣯⣻⢿⣭⣿⣼⣿⢽⣿⣧⣼⣿⡯⣷⣧⣿⣭⡷⣟⣽⣾⣿⣿⣿⣿⣿⣿⣶⣦⣄⣀⠀⠀⠀]],
+    [[           ⠐⠚⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠚⠙⢿⡻⢯⣿⣿⣿⣿⡽⢟⡿⠋⠓⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠓⠂]],
+    [[           ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣤⣶⣶⣶⣶⡦⠀⣯⣖⠈⠉⠉⠁⣲⣽⠀⢴⣶⣶⣶⣶⣤⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
+    [[           ⠀⠀⠀⠀⠀⠀⠀⠀⣰⣾⣿⣿⣿⣿⣿⡿⠟⠉⠀⠀⢛⡿⠿⠿⠿⠿⢿⡟⠀⠀⠉⠻⢿⣿⣿⣿⣿⣿⣷⣆⠀⠀⠀⠀⠀⠀⠀⠀]],
+    [[           ⠀⠀⠀⠀⠀⠀⢀⣼⣿⣿⣿⣿⡿⠟⠉⠀⠀⠀⠀⠀⢸⡟⡶⡤⢤⢼⢻⡇⠀⠀⠀⠀⠀⠉⠻⢿⣿⣿⣿⣿⣧⡀⠀⠀⠀⠀⠀⠀]],
+    [[           ⠀⠀⠀⠀⠀⢠⣾⣿⣿⣿⠟⠋⠀⠀⠀⠀⣠⣴⡖⠀⠸⠀⠃⠀⠀⠘⠀⠇⠀⢲⣦⣄⠀⠀⠀⠀⠉⠻⣿⣿⣿⣷⡄⠀⠀⠀⠀⠀]],
+    [[           ⠀⠀⠀⠀⣰⣿⣿⠟⠋⠀⠀⠀⠀⢀⣤⣾⣿⠏⠀⠀⢡⠀⡀⠀⠀⢀⠀⡌⠀⠀⠹⣿⣷⣤⡀⠀⠀⠀⠀⠙⠻⣿⣿⣆⠀⠀⠀⠀]],
+    [[           ⠀⠀⢀⣼⡿⠏⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⠏⠀⠀⠀⢸⡇⣿⣦⣴⣿⢸⡇⠀⠀⠀⠸⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠹⢿⣧⡀⠀⠀]],
+    [[           ⠀⢀⠜⠉⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⠋⠀⠀⠀⠀⢸⡇⣿⣿⣿⣿⢸⡇⠀⠀⠀⠀⠙⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠉⠣⡀⠀]],
+    [[           ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡿⠃⠀⠀⠀⠀⠀⠸⠀⠙⠿⠿⠊⠀⠇⠀⠀⠀⠀⠀⠘⢿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
+    [[           ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡿⠁⠀⠀⠀⠀⠀⠀⠀⢠⠀⠀⠀⠀⡄⠀⠀⠀⠀⠀⠀⠀⠈⢿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
+    [[           ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡘⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡣⠤⠤⢜⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
+    [[           ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢛⣤⣤⣤⣤⡓⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
+    [[           ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠛⠛⠛⠛⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
+    [[                                                           ]],
+    [[]],
   }
+
+  -- Add random quote
+  local quote_lines = get_random_witcher_quote()
+  for _, line in ipairs(quote_lines) do
+    table.insert(header, line)
+  end
+
+  dashboard.section.header.val = header
+  dashboard.section.header.opts.hl = "AlphaHeader"
+
 
   dashboard.section.buttons.val = {
     dashboard.button("f", "  Find file", ":Telescope find_files <CR>"),
