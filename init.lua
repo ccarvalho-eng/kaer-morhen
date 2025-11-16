@@ -25,6 +25,7 @@ local plugins = {
   'cmp',
   'editor',
   'nvim-tree',
+  'lualine',
 }
 
 for _, plugin in ipairs(plugins) do
