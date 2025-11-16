@@ -39,10 +39,7 @@ return function(use)
   use 'kylechui/nvim-surround'
   use 'nvim-tree/nvim-tree.lua'
   use 'nvim-tree/nvim-web-devicons'
-  use {
-    'goolord/alpha-nvim',
-    requires = { 'MaximilianLloyd/ascii.nvim' }
-  }
+  use 'goolord/alpha-nvim'
 
   -- Language-Specific
   use 'vim-test/vim-test'
