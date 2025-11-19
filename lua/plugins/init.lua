@@ -15,6 +15,13 @@ return function(use)
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use {
+    'folke/noice.nvim',
+    requires = {
+      'MunifTanjim/nui.nvim',
+      'rcarriga/nvim-notify',
+    }
+  }
 
   -- LSP & Completion
   use 'hrsh7th/nvim-cmp'
@@ -40,6 +47,8 @@ return function(use)
   use 'nvim-tree/nvim-tree.lua'
   use 'nvim-tree/nvim-web-devicons'
   use 'goolord/alpha-nvim'
+  use 'vimwiki/vimwiki'
+  use 'folke/which-key.nvim'
 
   -- Language-Specific
   use 'vim-test/vim-test'

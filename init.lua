@@ -27,6 +27,9 @@ local plugins = {
   'editor',
   'nvim-tree',
   'lualine',
+  'vimwiki',
+  'which-key',
+  'noice',
 }
 
 for _, plugin in ipairs(plugins) do
