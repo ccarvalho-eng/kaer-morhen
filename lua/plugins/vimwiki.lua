@@ -9,11 +9,17 @@ function M.open_diary_modal()
   local diary_path = wiki_path .. '/diary/' .. date .. '.md'
 
   -- Create or open the diary file in a buffer
-  local buf = vim.api.nvim_create_buf(false, false)
-  vim.api.nvim_buf_set_name(buf, diary_path)
-  vim.api.nvim_buf_call(buf, function()
+  local temp_buf = vim.api.nvim_create_buf(false, false)
+  local buf
+  vim.api.nvim_buf_call(temp_buf, function()
     vim.cmd('edit ' .. vim.fn.fnameescape(diary_path))
+    buf = vim.api.nvim_get_current_buf()
   end)
+
+  -- Delete the temporary buffer if it's different from the loaded one
+  if temp_buf ~= buf then
+    vim.api.nvim_buf_delete(temp_buf, { force = true })
+  end
 
   -- Calculate window dimensions (80% of screen)
   local width = math.floor(vim.o.columns * 0.8)
@@ -35,6 +41,8 @@ function M.open_diary_modal()
   -- Set window options
   vim.api.nvim_win_set_option(win, 'winblend', 0)
   vim.api.nvim_win_set_option(win, 'cursorline', true)
+  vim.api.nvim_win_set_option(win, 'number', true)
+  vim.api.nvim_win_set_option(win, 'relativenumber', true)
 
   -- Set buffer options
   vim.api.nvim_buf_set_option(buf, 'filetype', 'vimwiki')
