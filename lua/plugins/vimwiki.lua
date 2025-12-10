@@ -34,7 +34,6 @@ function M.open_diary_modal()
     height = height,
     row = row,
     col = col,
-    style = 'minimal',
     border = 'rounded',
   })
 
@@ -51,6 +50,11 @@ function M.open_diary_modal()
   local opts = { noremap = true, silent = true, buffer = buf }
   vim.keymap.set('n', 'q', '<cmd>q<cr>', opts)
   vim.keymap.set('n', '<Esc><Esc>', '<cmd>q<cr>', opts)
+
+  -- Browse other wiki files with Telescope
+  vim.keymap.set('n', '<C-p>', function()
+    require('telescope.builtin').find_files({ cwd = wiki_path })
+  end, { noremap = true, silent = true, buffer = buf, desc = 'Find wiki files' })
 end
 
 function M.setup()
