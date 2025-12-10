@@ -42,3 +42,6 @@ end
 
 -- Load filetype configurations
 require('config.filetype')
+
+-- Load vimwiki diary template
+require('config.vimwiki-diary-template').setup()
