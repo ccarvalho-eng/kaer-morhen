@@ -21,8 +21,8 @@ function M.open_diary_modal()
     vim.api.nvim_buf_delete(temp_buf, { force = true })
   end
 
-  -- Calculate window dimensions (80% of screen)
-  local width = math.floor(vim.o.columns * 0.8)
+  -- Calculate window dimensions
+  local width = math.floor(vim.o.columns * 0.4)
   local height = math.floor(vim.o.lines * 0.8)
   local row = math.floor((vim.o.lines - height) / 2)
   local col = math.floor((vim.o.columns - width) / 2)
@@ -42,6 +42,7 @@ function M.open_diary_modal()
   vim.api.nvim_win_set_option(win, 'cursorline', true)
   vim.api.nvim_win_set_option(win, 'number', true)
   vim.api.nvim_win_set_option(win, 'relativenumber', true)
+  vim.api.nvim_win_set_option(win, 'winhighlight', 'Normal:Normal,EndOfBuffer:Normal')
 
   -- Set buffer options
   vim.api.nvim_buf_set_option(buf, 'filetype', 'vimwiki')
