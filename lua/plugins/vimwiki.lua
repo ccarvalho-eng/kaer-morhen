@@ -83,6 +83,17 @@ function M.setup()
 
   -- Disable table mappings (can be enabled if needed)
   vim.g.vimwiki_table_mappings = 0
+
+  -- Set up buffer-local keymaps for all vimwiki files
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "vimwiki",
+    callback = function()
+      local opts = { noremap = true, silent = true, buffer = true }
+      vim.keymap.set('n', 'q', '<cmd>q<cr>', opts)
+      vim.keymap.set('n', '<Esc><Esc>', '<cmd>q<cr>', opts)
+    end,
+    desc = "Set up vimwiki buffer keymaps"
+  })
 end
 
 function M.keymaps()
