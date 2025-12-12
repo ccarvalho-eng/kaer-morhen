@@ -28,7 +28,7 @@ function M.generate_template()
     "",
     "## Council Gatherings",
     "",
-    "- [ ],
+    "- [ ]",
     "",
     "## Dusk Report",
     "",
